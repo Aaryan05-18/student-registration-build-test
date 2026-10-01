@@ -1,0 +1,31 @@
+name: HTML Registration Form Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test-html:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check HTML file exists
+        run: test -f index.html
+
+      - name: Check required HTML elements
+        run: |
+          grep -q '<form' index.html
+          grep -q 'name="name"' index.html
+          grep -q 'name="email"' index.html
+          grep -q 'name="phone"' index.html
+          grep -q 'name="dob"' index.html
+          grep -q 'name="gender"' index.html
+          grep -q 'name="course"' index.html
+          grep -q 'name="address"' index.html
+          grep -q 'type="submit"' index.html
+
+      - name: Test completed
+        run: echo "Student registration form passed all tests."
